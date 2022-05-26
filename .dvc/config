@@ -1,0 +1,5 @@
+[core]
+    remote = cicd
+    autostage = true
+['remote "cicd"']
+    url = gdrive://1wnMcdZV5hFx2FX7yAGfC7UoYcXbPcNkq

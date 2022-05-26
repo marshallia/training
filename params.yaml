@@ -1,0 +1,16 @@
+feature:
+  batch_size: 10
+  img_width: 150
+  img_height: 150
+train:
+  epochs: 10
+  batch_size: 10
+  model_name: model.h5
+  dropout: .5
+  optimizer: adam
+evaluate:
+  batch_size: 10
+  model_name: model.h5
+data:
+  train_dir: train
+  validation: validation

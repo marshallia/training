@@ -13,7 +13,7 @@ if len(sys.argv) != 4:
     sys.stderr.write("Arguments error. Usage:\n")
     sys.stderr.write("\tpython evaluate.py model features model output_plot\n")
     sys.exit(1)
-BASE_PATH = '/Users/marshallia/PycharmProjects/training'
+BASE_PATH = '/home/kuro/PycharmProjects/training' # change this according ur need
 
 params = yaml.safe_load(open(os.path.join(BASE_PATH, "params.yaml")))["evaluate"]
 batch_size = params["batch_size"]
@@ -51,6 +51,7 @@ def evaluate():
 
 def save_ploting(path, name, list_val1, list_val2, thresholds, keys):
     """ This method is used to save ploting points"""
+    os.makedirs(os.path.dirname(path), exist_ok=True)
 
     with open(path, "w") as file:
         json.dump(

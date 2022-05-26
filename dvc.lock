@@ -1,0 +1,80 @@
+schema: '2.0'
+stages:
+  featurize:
+    cmd: python3 src/featurization.py data feature
+    deps:
+    - path: data
+      md5: 5243401e5d003801dd24f52de745f9c4.dir
+      size: 63983158
+      nfiles: 2806
+    - path: src/featurization.py
+      md5: 3a70d294b50c4b05c8a9bbaf4e4f751a
+      size: 3799
+    params:
+      params.yaml:
+        feature.batch_size: 10
+        feature.img_height: 150
+        feature.img_width: 150
+    outs:
+    - path: feature
+      md5: c9f1570dfdec9a085d0388868255a413.dir
+      size: 91773568
+      nfiles: 6
+  train:
+    cmd: python3 src/training.py feature
+    deps:
+    - path: data
+      md5: 5243401e5d003801dd24f52de745f9c4.dir
+      size: 63983158
+      nfiles: 2806
+    - path: feature
+      md5: c9f1570dfdec9a085d0388868255a413.dir
+      size: 91773568
+      nfiles: 6
+    - path: src/training.py
+      md5: 1f404612aea518747843c932e38d7815
+      size: 2909
+    params:
+      params.yaml:
+        train.batch_size: 10
+        train.dropout: 0.3
+        train.epochs: 10
+        train.model_name: model1.h5
+        train.optimizer: adam
+    outs:
+    - path: metrics.csv
+      md5: 94f25adb9ebd1d77bab69c884cfaf012
+      size: 2935
+    - path: model1.h5
+      md5: 2d11ba9c2d0fe6ac4902bf3cc7c090ff
+      size: 25200528
+    - path: training_history.json
+      md5: 621c22708286e1c108d6f44b40b763e8
+      size: 3035
+  evaluate:
+    cmd: python3 src/evaluate.py model1.h5 feature plot
+    deps:
+    - path: feature
+      md5: c9f1570dfdec9a085d0388868255a413.dir
+      size: 91773568
+      nfiles: 6
+    - path: model1.h5
+      md5: 2d11ba9c2d0fe6ac4902bf3cc7c090ff
+      size: 25200528
+    - path: src/evaluate.py
+      md5: 3b15e7281234b528320e9f986d37c1f1
+      size: 2456
+    params:
+      params.yaml:
+        evaluate.batch_size: 10
+        evaluate.model_name: model1.h5
+    outs:
+    - path: plot/prc.json
+      md5: 75a4b4a715edca4e4726318644c79343
+      size: 14020
+    - path: plot/roc.json
+      md5: 7572d6e43864a3d4380b6f63344288ad
+      size: 7990
+    - path: test_result.json
+      md5: a3bdd46bce9c88aeb0b0963509202f36
+      size: 269

@@ -5,12 +5,14 @@ feature:
 train:
   epochs: 10
   batch_size: 10
-  model_name: model.h5
-  dropout: .5
+  model_name: model1.h5
+  dropout: .3
   optimizer: adam
 evaluate:
   batch_size: 10
-  model_name: model.h5
+  model_name: model1.h5
 data:
   train_dir: train
   validation: validation
+path:
+  base_path: /home/kuro/PycharmProjects/training

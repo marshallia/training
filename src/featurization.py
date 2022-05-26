@@ -13,7 +13,7 @@ if len(sys.argv) != 3 and len(sys.argv) != 5:
     sys.stderr.write("\tpython featurization.py data-dir-path features-dir-path\n")
     sys.exit(1)
 
-BASE_PATH = '/Users/marshallia/PycharmProjects/training'
+BASE_PATH = '/home/kuro/PycharmProjects/training' # change this according ur need
 
 params = yaml.safe_load(open(os.path.join(BASE_PATH, "params.yaml")))["feature"]
 img_width = params["img_width"]
@@ -31,7 +31,6 @@ test_output = os.path.join(sys.argv[2], "bottleneck_features_test.npy")
 train_label_output = os.path.join(sys.argv[2], "bottleneck_label_features_train.npy")
 validation_label_output = os.path.join(sys.argv[2], "bottleneck_label_features_validation.npy")
 test_label_output = os.path.join(sys.argv[2], "bottleneck_label_features_test.npy")
-
 
 def generator(data_path):
     """ This file is used to generate features from dataset"""
@@ -61,9 +60,8 @@ def generate_label(path, val=False):
 
 def save_features(path, feature):
     """ This file use to create file from generated features"""
-
-    np.save(open(path, 'wb'),
-            feature)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    np.save(open(path,'wb'),feature)
 
 
 def save_bottlebeck_features():
